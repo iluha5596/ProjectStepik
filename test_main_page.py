@@ -1,5 +1,8 @@
+import time
 from .pages.login_page import LoginPage
 from .pages.main_page import MainPage
+from .pages.product_page import ProductPage
+from .pages.base_page import BasePage
 
 
 def test_guest_can_go_to_login_page(browser):
@@ -23,3 +26,22 @@ def test_guest_can_go_to_login_page(browser):
     page.go_to_login_page()
     login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_page()
+
+
+def test_guest_can_add_product_to_basket(browser):
+    url = 'https://selenium1py.pythonanywhere.com/ru/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+    page = ProductPage(browser, url)
+    page.open()
+    page.click_add_basket()
+    assert_alert = BasePage(browser, url)
+    assert_alert.solve_quiz_and_get_code()
+    page.message_add_basket()
+
+
+def test_my_test(browser):
+    url = 'http://selenium1py.pythonanywhere.com/'
+    name_book = "The shellcoder's handbook"
+    page = MainPage(browser, url, name_book)
+    page.open()
+    page.search_book()
+
