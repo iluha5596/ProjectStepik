@@ -20,6 +20,6 @@ class ProductPage(BasePage):
         price_book = price_book_link.text
         message_name_book = message_name_book_link.text
         message_price_book = message_price_book_link.text
-        assert name_book in message_name_book, 'Incorrect book title in the message when adding to basket'
-        assert price_book in message_price_book, 'Incorrect book price in the message when adding to basket'
+        assert name_book == message_name_book, 'Incorrect book title in the message when adding to basket'
+        assert price_book == message_price_book, 'Incorrect book price in the message when adding to basket'
 

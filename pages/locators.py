@@ -23,5 +23,5 @@ class ProductPageLocators:
     BUTTON_ADD_BASKET = (By.XPATH, '//form[@id="add_to_basket_form"]/button[@type="submit"]')
     NAME_BOOK = (By.XPATH, '//div/h1')
     PRICE_BOOK = (By.XPATH, '(//p[@class="price_color"])[1]')
-    MESSAGE_NAME_BOOK = (By.XPATH, '(//div[@class="alertinner "])[1]')
-    MESSAGE_PRICE_BOOK = (By.XPATH, '(//div[@class="alertinner "])/p')
+    MESSAGE_NAME_BOOK = (By.XPATH, '(//div[@class="alertinner "]/strong)[1]')
+    MESSAGE_PRICE_BOOK = (By.XPATH, '(//div[@class="alertinner "])/p/strong')
