@@ -2,6 +2,11 @@ import self
 from selenium.webdriver.common.by import By
 
 
+class BasePageLocators:
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+
+
 class MainPageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, '#login_link')
     SEARCH_BAR = (By.XPATH, '//input[@type="search"]')
@@ -25,3 +30,6 @@ class ProductPageLocators:
     PRICE_BOOK = (By.XPATH, '(//p[@class="price_color"])[1]')
     MESSAGE_NAME_BOOK = (By.XPATH, '(//div[@class="alertinner "]/strong)[1]')
     MESSAGE_PRICE_BOOK = (By.XPATH, '(//div[@class="alertinner "])/p/strong')
+    MESSAGE_ADD_BOOK = (By.XPATH, '//div[@class="alert alert-safe alert-noicon alert-success  fade in"]/div['
+                                  '@class="alertinner "]')
+

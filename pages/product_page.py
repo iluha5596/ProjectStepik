@@ -23,3 +23,10 @@ class ProductPage(BasePage):
         assert name_book == message_name_book, 'Incorrect book title in the message when adding to basket'
         assert price_book == message_price_book, 'Incorrect book price in the message when adding to basket'
 
+    def message_is_not_element_present(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_ADD_BOOK), 'Success message is presented, ' \
+                                                                                   'but should not be '
+
+    def message_is_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_ADD_BOOK), 'Success message is not disappeared'
+
