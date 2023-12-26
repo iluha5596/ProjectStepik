@@ -4,6 +4,7 @@ from .pages.login_page import LoginPage
 from .pages.main_page import MainPage
 from .pages.product_page import ProductPage
 from .pages.base_page import BasePage
+from .pages.basket_page import BasketPage
 
 
 @pytest.mark.parametrize('promo', range(0, 10))
@@ -59,3 +60,12 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_page()
 
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    url = 'https://selenium1py.pythonanywhere.com/ru/catalogue/hacking-exposed-wireless_208/'
+    product_page = ProductPage(browser, url)
+    product_page.open()
+    base_page = BasePage(browser, url)
+    base_page.basket_opened()
+    basket_page = BasketPage(browser, url)
+    basket_page.check_basket_page()
