@@ -7,19 +7,36 @@ from .pages.base_page import BasePage
 from .pages.basket_page import BasketPage
 
 
-@pytest.mark.parametrize('promo', range(0, 10))
-def test_guest_can_add_product_to_basket(browser, promo):
-    baseUrl = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer'
-    url = f'{baseUrl}{promo}'
-    page = ProductPage(browser, url)
-    page.open()
-    page.click_add_basket()
-    assert_alert = BasePage(browser, url)
-    assert_alert.solve_quiz_and_get_code()
-    try:
-        page.message_add_basket()
-    except AssertionError:
-        pytest.xfail(f"Skipping test for link: {url}")
+@pytest.mark.login_user
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        url = 'https://selenium1py.pythonanywhere.com/ru/accounts/login/'
+        login_page = LoginPage(browser, url)
+        login_page.open()
+        email = str(time.time()) + '@fakemail.org'
+        password = '45a6fdasf46a'
+        login_page.register_new_user(email=email, password=password)
+        base_page = BasePage(browser, url)
+        base_page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        url = 'http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/'
+        page = ProductPage(browser, url)
+        page.open()
+        page.message_is_not_element_present()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        url = 'https://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/?promo=offer5'
+        page = ProductPage(browser, url)
+        page.open()
+        page.click_add_basket()
+        assert_alert = BasePage(browser, url)
+        assert_alert.solve_quiz_and_get_code()
+        try:
+            page.message_add_basket()
+        except AssertionError:
+            pytest.xfail(f"Skipping test for link: {url}")
 
 
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
@@ -27,13 +44,6 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page = ProductPage(browser, url)
     page.open()
     page.click_add_basket()
-    page.message_is_not_element_present()
-
-
-def test_guest_cant_see_success_message(browser):
-    url = 'http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/'
-    page = ProductPage(browser, url)
-    page.open()
     page.message_is_not_element_present()
 
 
@@ -69,3 +79,18 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     base_page.basket_opened()
     basket_page = BasketPage(browser, url)
     basket_page.check_basket_page()
+
+
+@pytest.mark.parametrize('promo', range(0, 10))
+def test_guest_can_add_product_to_basket(self, browser, promo):
+    baseUrl = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer'
+    url = f'{baseUrl}{promo}'
+    page = ProductPage(browser, url)
+    page.open()
+    page.click_add_basket()
+    assert_alert = BasePage(browser, url)
+    assert_alert.solve_quiz_and_get_code()
+    try:
+        page.message_add_basket()
+    except AssertionError:
+        pytest.xfail(f"Skipping test for link: {url}")
