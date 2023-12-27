@@ -8,10 +8,9 @@ from .locators import BasePageLocators
 
 class BasePage(object):
 
-    def __init__(self, browser, url, name_book="test", timeout=10):
+    def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
-        self.name_book = name_book
         self.browser.implicitly_wait(timeout)
 
     def open(self):
