@@ -7,10 +7,6 @@ class MainPage(BasePage):
     def __init__(self, *args, **kwargs):
         super(MainPage, self).__init__(*args, **kwargs)
 
-    def go_to_login_page(self):
-        login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
-        login_link.click()
-
     def search_book(self):
         search_bar_link = self.browser.find_element(*MainPageLocators.SEARCH_BAR)
         search_bar_link.send_keys(self.name_book)
