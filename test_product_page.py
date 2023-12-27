@@ -34,7 +34,7 @@ class TestUserAddToBasketFromProductPage:
 
 
 @pytest.mark.need_review
-@pytest.mark.parametrize('promo', range(9, 10))
+@pytest.mark.parametrize('promo', range(0, 10))
 def test_guest_can_add_product_to_basket(browser, promo):
     baseUrl = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer'
     url = f'{baseUrl}{promo}'
